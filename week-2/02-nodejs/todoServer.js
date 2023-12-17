@@ -45,5 +45,51 @@
   const app = express();
   
   app.use(bodyParser.json());
-  
+  let todos=[]
+
+  app.get('/todos',(req,res)=>{
+    res.json(todos);
+  })
+
+  app.get('/todos/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+    const todo=todos.find((todo)=>(todo.id===id));
+    if(todo)
+    res.json(todo);
+    else res.status(404).send();
+  })
+
+  app.post('/todos',(req,res)=>{
+    const todo={
+      id:Math.floor(Math.random()*100000),
+      title:req.body.title,
+      description:req.body.description
+    };
+    todos.push(todo);
+    res.status(201).json({id:todo.id});
+  })
+
+  app.put('/todos/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+    const index=todos.findIndex((todo)=>todo.id===id);
+    if(index===-1)
+    res.status(404).send();
+    else {
+      todos[index].title=req.body.title;
+      todos[index].description=req.body.description;
+      res.status(200).send(todos[index]);
+    }
+  })
+
+  app.delete('/todos/:id',(req,res)=>{
+    const id=parseInt(req.params.id);
+    const index=todos.findIndex((todo)=>todo.id===id);
+    if(index===-1)
+    res.status(404).send();
+    else{
+      todos.splice(index,1);
+      res.status(200).send();
+    }
+
+  })
   module.exports = app;

@@ -40,11 +40,7 @@ class Calculator {
     return this.res;
 }
   calculate(str){
-    let s="";
-    for(let char of str){
-      if(char!==" ")
-        s+=char;
-    }
+    let s=str.replace(/\s+/g,'');
 
     try{
     this.res=eval(s);

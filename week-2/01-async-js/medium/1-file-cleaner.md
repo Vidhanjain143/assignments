@@ -11,3 +11,24 @@ After the program runs, the output should be
 ```
 hello world my name is raman
 ```
+Code
+```
+const fs = require("fs");
+
+fs.readFile("a.txt", "utf8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  const cleanedContent = data.replace(/\s+/g, ' ');
+
+  fs.writeFile("a.txt", cleanedContent, err => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('File cleaned successfully!');
+  });
+});
+```
