@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
 
 const CourseSchema = new mongoose.Schema({
     // Schema definition here
+    courseId:Number,
     title:String,
     description:String,
     price:Number,

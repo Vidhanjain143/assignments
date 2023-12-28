@@ -14,6 +14,7 @@ router.post('/signup', async (req, res) => {
 router.post('/courses', adminMiddleware, async(req, res) => {
     // Implement course creation logic
     let course=await Course.create({
+        courseId:req.body.courseId,
         title:req.body.title,
         description:req.body.description,
         price:req.body.price,
@@ -21,7 +22,7 @@ router.post('/courses', adminMiddleware, async(req, res) => {
     })
     res.json({
         message:"Course created successfully",
-        id:course._id,
+        id:course.courseId,
     })
 });
 
